@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+
+  celery_task:
+    build: .
+    container_name: celery_task
+    command: ['celery', '-A', 'tasks' ,'worker' ,'--loglevel=info']
+
+  app_task:
+    build: . 
+    container_name: app_task
+    command: python myapp.py
