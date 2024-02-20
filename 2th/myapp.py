@@ -1,7 +1,7 @@
-from proj.tasks import add, devide
+from proj.tasks import add, devide,average
 
 from proj.celery import app
-from celery import group,chain
+from celery import group,chain,chord
 
 
 # result = add.delay(3, 5)
@@ -42,6 +42,17 @@ from celery import group,chain
 # 
 
 
-ch = chain(add.s(3) | add.s(2))
-print(ch(5).get())
+# ch = chain(add.s(3) | add.s(2))
+# print(ch(5).get())
 
+
+# ch = chain(add.s(2,8) | add.s(2))
+# print(ch().get())
+# 
+
+
+ch = chord((add.s(i,i) for i in range (10)),average.s())
+print(ch().get())
+
+# ch=(group(add.s(i, i) for i in range(10)) | average.s())
+# print(ch().get())
