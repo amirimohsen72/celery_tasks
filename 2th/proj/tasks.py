@@ -7,6 +7,6 @@ def add(x, y):
     return x+y
 
 
-@app.task
+@app.task(ignore_result=True)
 def devide(x, y):
     return x / y
