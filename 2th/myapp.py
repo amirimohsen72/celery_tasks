@@ -1,7 +1,7 @@
 from proj.tasks import add, devide
 
 from proj.celery import app
-from celery import group
+from celery import group,chain
 
 
 # result = add.delay(3, 5)
@@ -33,6 +33,15 @@ from celery import group
 # r = group(add.s(i,i) for i in range(10))().get()
 # print(r)
 
-g = group(add.s(i) for i in range(10))
-print(g(10).get())
+# g = group(add.s(i) for i in range(10))
+# print(g(10).get())
+
+
+# ch = chain(add.s(2,8) | add.s(2))
+# print(ch().get())
+# 
+
+
+ch = chain(add.s(3) | add.s(2))
+print(ch(5).get())
 
