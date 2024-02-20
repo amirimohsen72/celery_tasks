@@ -10,3 +10,8 @@ def add(x, y):
 @app.task(ignore_result=True)
 def devide(x, y):
     return x / y
+
+
+@app.task
+def average(l):
+    return sum(l) / len(l)

@@ -1,5 +1,8 @@
 from proj.tasks import add, devide
 
+from proj.celery import app
+from celery import group
+
 
 # result = add.delay(3, 5)
 # print(result.get())
@@ -15,7 +18,21 @@ from proj.tasks import add, devide
 # result = devide.apply_async((33,3),countdown=5)
 # print(result.get())
 
-func = add.signature((2,19),countdown=10)
-res=func.delay()
-print(res.get())
-res.forget()
+# func = add.signature((2,19),countdown=10)
+# res=func.delay()
+# print(res.get())
+# res.forget()
+
+
+
+# f = lambda x: x+1
+# print(f(2))
+# g = group(add.s(i,i) for i in range(10))
+# print(g().get())
+
+# r = group(add.s(i,i) for i in range(10))().get()
+# print(r)
+
+g = group(add.s(i) for i in range(10))
+print(g(10).get())
+
