@@ -51,8 +51,24 @@ from celery import group,chain,chord
 # 
 
 
-ch = chord((add.s(i,i) for i in range (10)),average.s())
-print(ch().get())
+# ch = chord((add.s(i,i) for i in range (10)),average.s())
+# print(ch().get())
 
 # ch=(group(add.s(i, i) for i in range(10)) | average.s())
 # print(ch().get())
+
+
+result1 = add.delay(3, 5)
+# print(result1.get())
+
+
+result2 = devide.delay(100, 20)
+# print(result2.get())
+
+result3 = average.delay([1,2,3])
+
+# incustom queue
+result = average.apply_async([[1,2,3]], queue='queue1')
+
+# print(result3.get())
+# print(result1.get())

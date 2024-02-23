@@ -23,3 +23,10 @@ activate celery by command (app name is 'tasks')
 ````
 celery -A tasks worker --loglevel=INFO
 ````
+
+
+run with some queues
+activate celery by command (app name is 'tasks')
+````
+celery -A proj worker -Q queue1,queue2,queue3 -l INFO
+````
